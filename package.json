@@ -1,0 +1,14 @@
+{
+  "name": "halcyon-row",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A cozy city social sim about one month, six friends and a lantern festival.",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node server/serve.mjs",
+    "lan": "node server/serve.mjs --lan",
+    "test": "node --test tests/*.test.mjs",
+    "precache": "node tools/gen-precache.mjs"
+  }
+}
