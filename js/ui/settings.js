@@ -158,7 +158,7 @@ export function openSettings(app, { tab = 'game', onChange, onQuit } = {}) {
         try {
           const ids = await app.ai.listModels();
           clear(modelPick);
-          modelPick.append(h('option', { value: '' }, `${ids.length} models. Pick one...`), ids.map((id) => h('option', { value: id }, id)));
+          modelPick.append(h('option', { value: '' }, `${ids.length} models. Pick one...`), ...ids.map((id) => h('option', { value: id }, id)));
           modelPick.hidden = false;
           testOut.textContent = ids.length ? 'Pick a model from the list.' : 'The service returned no chat models.';
         } catch (e) { fail(testOut, e); } finally { loadBtn.disabled = false; }
@@ -188,7 +188,7 @@ export function openSettings(app, { tab = 'game', onChange, onQuit } = {}) {
         try {
           models = await app.ai.listModels();
           clear(modelPick);
-          modelPick.append(h('option', { value: '' }, `${models.length} models. Pick one...`), models.map((m, i) => h('option', { value: String(i) }, m.label)));
+          modelPick.append(h('option', { value: '' }, `${models.length} models. Pick one...`), ...models.map((m, i) => h('option', { value: String(i) }, m.label)));
           modelPick.hidden = false;
           testOut.textContent = models.length ? 'Pick a model from the list.' : 'OpenCode has no connected providers. Run /connect inside OpenCode first.';
         } catch (e) { fail(testOut, e); } finally { loadBtn.disabled = false; }

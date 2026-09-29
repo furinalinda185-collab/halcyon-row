@@ -176,8 +176,11 @@
   .dlg { padding: 1.2rem 1rem 0.5rem 1.1rem; }
   .dlg-text { font-size: 0.98rem; }
   .actor { height: calc(100% - var(--dlg-h) + 40px); }
-  .choices { grid-template-columns: 1fr 1fr; max-width: 900px; }
+  /* Choices go to the right half so they never cover the face; the portrait slides left. */
+  .choices { left: auto; right: 0; width: min(54%, 520px); margin: 0; padding: 8px max(12px, var(--sar)) 8px 12px; }
+  .choices::before { inset: -40px -100vw 0 -90px; background: linear-gradient(90deg, transparent, rgba(8, 5, 18, 0.82) 90px); }
   .choice { min-height: 44px; }
+  .scene.choosing .actors { transform: translateX(-24%); }
 }
 
 @media (min-width: 900px) {
