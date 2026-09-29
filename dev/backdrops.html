@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Backdrop lab</title>
+  <style>
+    body { margin: 0; background: #1b1524; color: #eee; font: 12px system-ui, sans-serif; padding: 10px; }
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .cell { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 6px; background: #000; }
+    .cell svg { width: 100%; height: 100%; display: block; }
+    .cell label { position: absolute; left: 6px; top: 4px; z-index: 2; background: rgba(0,0,0,0.55); padding: 1px 6px; border-radius: 4px; }
+    .rain line { animation: fall 0.9s linear infinite; }
+    @keyframes fall { from { transform: translateY(0); } to { transform: translateY(490px); } }
+    .steam, .shimmer, .sway, .drift, .twinkle, .blink, .gull, .onair { }
+  </style>
+</head>
+<body>
+  <div id="root" class="grid"></div>
+  <script type="module">
+    import { backdropSVG, BACKDROP_LOOK } from '../js/art/backdrop.js';
+    const q = new URLSearchParams(location.search);
+    const slot = +(q.get('slot') ?? 2);
+    const weather = q.get('weather') || 'clear';
+    const only = q.get('loc');
+    const root = document.getElementById('root');
+    for (const id of BACKDROP_LOOK.filter((x) => !only || x === only)) {
+      root.insertAdjacentHTML('beforeend', `<div class="cell"><label>${id} s${slot} ${weather}</label>${backdropSVG(id, { slot, weather })}</div>`);
+    }
+  </script>
+</body>
+</html>
