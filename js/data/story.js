@@ -13,7 +13,7 @@
 // Friends' own rank scenes are in data/scenes/*.js and do not need to change.
 
 import {
-  voice, me, narr, choice, opt, iff, set, bg, show, hide, title, complete, remember, stat, pts,
+  voice, me, narr, choice, opt, iff, set, bg, show, hide, title, complete, remember, stat, clearStage,
 } from '../core/dsl.js';
 import { CHARACTERS, CHAR_BY_ID } from './characters/index.js';
 import { sceneNodes } from '../core/scenes.js';
@@ -211,6 +211,7 @@ export const STORY_BEATS = [
           ? 'The pier is full, warm, and loud. Nobody can find a place to stand and nobody is complaining.'
           : 'The pier is quieter than it could be. But everyone who came is happy to be there, and the lanterns make up the difference.';
       const parts = CHARACTERS.flatMap((c) => [
+        clearStage(),
         ...c.finale(env),
         iff({ rank: [c.id, 4] }, [
           complete(c.id, 5),

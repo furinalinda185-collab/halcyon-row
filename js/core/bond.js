@@ -1,27 +1,30 @@
 // Friendship math. Ranks 0 to 5, points, and the rules that stop grinding.
 //
-// Rank 0 is a stranger. Scenes 1 to 4 each raise the rank by one. Rank 5 comes
-// from the festival finale, so the last step always happens in the story.
+// Rank 0 is a stranger. Scenes 1 to 4 each raise the rank by one. Rank 5 comes from the
+// festival finale for anyone already at rank 4, or from a short epilogue scene afterwards.
 
 export const RANKS = ['Stranger', 'Acquaintance', 'Friend', 'Good friend', 'Close friend', 'Best friend'];
-export const MAX_SCENE = 4;
+export const MAX_SCENE = 5;
 
 /** Points needed before scene N can be played. Scene 1 (meeting) needs none. */
-export const SCENE_PTS = { 1: 0, 2: 16, 3: 30, 4: 46 };
+export const SCENE_PTS = { 1: 0, 2: 22, 3: 46, 4: 74, 5: 88 };
 
 /** Per friend, per day. Hangouts and scene choices are limited by time slots instead. */
-export const DAILY_CAPS = { text: 2, ai: 4, gift: 3 };
+export const DAILY_CAPS = { text: 1, ai: 3, gift: 2 };
 
 const OVERFLOW = 3;      // how far past the next threshold points can bank
-const FINAL_CAP = 60;    // display cap once all four scenes are done
+const FINAL_CAP = 90;    // display cap once all four scenes are done
 
 export function rankName(rank) {
   return RANKS[Math.max(0, Math.min(RANKS.length - 1, rank))];
 }
 
+/** Scene 5 is the "some weeks later" scene. It only exists once the festival is behind you. */
 export function nextSceneNumber(state, id) {
   const n = state.bonds[id].rank + 1;
-  return n <= MAX_SCENE ? n : null;
+  if (n > MAX_SCENE) return null;
+  if (n === 5 && !state.done) return null;
+  return n;
 }
 
 export function pointsForNext(state, id) {

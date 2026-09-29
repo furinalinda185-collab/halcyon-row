@@ -334,6 +334,30 @@ export const scenes = [
       stat('empathy', 1),
     ],
   },
+  // ------------------------------------------------------------------ 5
+  {
+    n: 5,
+    at: ['cafe'],
+    minDay: 30,
+    title: 'The Boxes Person',
+    recap: 'Weeks after the festival, Junie showed you a line on the chalkboard with your name on it, and saved you the good chair.',
+    nodes: [
+      bg('cafe'),
+      show('junie', 'smirk'),
+      narr("There is a new line at the bottom of the chalkboard, in Junie's handwriting: THE BOXES PERSON. Cortado, brown sugar, no notes."),
+      J('laugh', "Do not look at it. Auntie added it. She did not even ask me."),
+      me('Is that my drink?'),
+      J('happy', 'It is legally your drink. There is a form.'),
+      iff({ is: ['junie_path', 'stay'] }, [J('neutral', 'We hired Marcus for the mornings. I have a day off. An actual day. I went to the pier and did nothing and I have never been so bored or so happy.')]),
+      iff({ is: ['junie_path', 'study'] }, [J('neutral', 'I leave in the spring. Auntie already made me a going away cake, which is rude, because it is better than mine.')]),
+      iff({ is: ['junie_path', 'time'] }, [J('neutral', 'Two years. I have a whole calendar. It is color coded. Do not look at it.')]),
+      choice([
+        opt('You seem lighter.', [J('blush', "I am. It is so annoying. I keep waiting for the other shoe and it is just... a shoe. A nice one."), ], { pts: ['junie', 4] }),
+        opt('Can I have the good chair?', [J('smirk', "That is not a metaphor. It is an actual chair. Sit."), ], { pts: ['junie', 3] }),
+      ]),
+      J('happy', 'Thank you for showing up. All of it. The bad croissants, especially.'),
+    ],
+  },
 ];
 
 // ---------------------------------------------------------------- hangouts

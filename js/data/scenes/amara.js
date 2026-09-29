@@ -311,6 +311,30 @@ export const scenes = [
       stat('empathy', 1),
     ],
   },
+  // ------------------------------------------------------------------ 5
+  {
+    n: 5,
+    at: ['radio'],
+    minDay: 30,
+    title: 'A Trailer on Alder and Third',
+    recap: 'Weeks after the festival, you visited the new Lantern FM in a trailer in a parking lot, where Amara now says her own name every night.',
+    nodes: [
+      bg('radio'),
+      show('amara', 'happy'),
+      narr('The new station is a trailer in a parking lot. The sign is hand lettered: LANTERN FM. ALDER AND THIRD. Somebody has painted a small orange lantern next to the door.'),
+      A('happy', 'The phone shop let us park in front of my grandmother\'s old window. The manager cried a little. I did not know phone shop managers did that.'),
+      A('neutral', 'I say my name every night now. Amara. It sounds a little less foreign each time. The request line has doubled. People ask for me by name.'),
+      choice([
+        opt('I am not surprised. You are easy to ask for.', [A('blush', 'Ah. That is a good line. Sit down before I make you say it again.')], { pts: ['amara', 4] }),
+        opt('What is the strangest request so far?', [A('laugh', 'A man asked for silence, and then hung up before I could give it to him. I played it anyway.')], { pts: ['amara', 4] }),
+      ]),
+      iff({ romance: 'amara' }, [
+        A('happy', 'One person calls every night and asks for nothing. They just stay on the line and breathe. It is my favorite call.'),
+      ], [
+        A('happy', 'And someone sits on the couch with a paper cup and says nothing at all. It is my favorite part of the show.'),
+      ]),
+    ],
+  },
 ];
 
 // ---------------------------------------------------------------- hangouts

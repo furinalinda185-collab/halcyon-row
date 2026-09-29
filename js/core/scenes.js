@@ -68,7 +68,7 @@ export function giftNodes(state, char, itemId) {
   const rng = seeded(hashString(`gift:${char.id}:${itemId}:${state.time.day}:${state.bonds[char.id].gifts}`));
   const line = lines[Math.floor(rng() * lines.length)];
   const mood = reaction === 'like' ? 'happy' : reaction === 'ok' ? 'neutral' : 'worried';
-  const amount = reaction === 'like' ? 3 : reaction === 'ok' ? 1 : 0;
+  const amount = reaction === 'like' ? 2 : reaction === 'ok' ? 1 : 0;
   return {
     reaction,
     nodes: [

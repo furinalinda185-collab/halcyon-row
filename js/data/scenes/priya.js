@@ -310,6 +310,30 @@ export const scenes = [
       stat('empathy', 1),
     ],
   },
+  // ------------------------------------------------------------------ 5
+  {
+    n: 5,
+    at: ['library'],
+    minDay: 30,
+    title: 'Acknowledgments',
+    recap: 'Weeks after the festival, Priya showed you the acknowledgments in her conference paper. Your name was in it.',
+    nodes: [
+      bg('library'),
+      show('priya', 'happy'),
+      P('happy', 'The conference accepted my abstract. Also Dr. Halvorsen wrote "sleep" in the email again. That is the third time. I believe it is now a form of affection.'),
+      P('neutral', 'I have something to show you. It is one line. It took me an entire evening.'),
+      narr('She turns her laptop around. In the acknowledgments, under the funding and the advisor and the lab, it says: "To {name}, who took me for walks."'),
+      choice([
+        opt('That is the best line in the paper.', [P('blush', 'It is the only line in the paper that is not peer reviewed. It is also the truest.')], { pts: ['priya', 4] }),
+        opt('You did the work. I just walked next to you.', [P('thinking', 'That is not nothing. That is, in fact, most of it.')], { pts: ['priya', 4] }),
+      ]),
+      iff({ romance: 'priya' }, [
+        P('blush', 'I drew a small sea slug next to it in the draft. A Flabellina. It is holding a cup of tea. I took it out. I am telling you so you know it was there.'),
+      ], [
+        P('happy', 'Margaret sends her regards. She has been very smug lately.'),
+      ]),
+    ],
+  },
 ];
 
 // ---------------------------------------------------------------- hangouts

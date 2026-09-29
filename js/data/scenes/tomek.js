@@ -331,6 +331,28 @@ export const scenes = [
       stat('empathy', 1),
     ],
   },
+  // ------------------------------------------------------------------ 5
+  {
+    n: 5,
+    at: ['market'],
+    minDay: 30,
+    title: 'Forty One Minutes',
+    recap: 'Weeks after the festival, Tomek told you his call with Zosia ran forty one minutes, and fed you.',
+    nodes: [
+      bg('market'),
+      show('tomek', 'neutral'),
+      T('neutral', 'Sit. Eat first.'),
+      narr('The bowl lands in front of you. The broth tastes like a table with people around it.'),
+      T('neutral', 'Zosia calls on Sundays now. Video. Last week it was forty one minutes.'),
+      T('smirk', 'I ran out of things to say at minute twelve. Then I just cooked with the phone propped on the shelf. She watched. She said it was her favorite part.'),
+      choice([
+        opt('That sounds like the best call you have ever had.', [T('neutral', 'It was.'), T('neutral', 'Do not tell her I said that. She will put it on a mug.')], { pts: ['tomek', 4] }),
+        opt('(Eat, and smile at the soup.)', [narr('He watches you eat. It seems to be the answer he was hoping for.')], { pts: ['tomek', 4] }),
+      ]),
+      T('neutral', 'Talk after. Or during. Zosia says during is allowed.'),
+      T('neutral', 'Come Fridays. Bring nothing. That is an order.'),
+    ],
+  },
 ];
 
 // ---------------------------------------------------------------- hangouts

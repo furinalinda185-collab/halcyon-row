@@ -311,6 +311,7 @@ export function playScript(app, nodes, opts = {}) {
             case 'bg': setBg(step.loc); if (!skipping) await wait(reduced ? 0 : 450); break;
             case 'show': place(step.who, step.mood, step.side); break;
             case 'hide': unplace(step.who); break;
+            case 'clear': for (const id of [...stage.keys()]) unplace(id); break;
             case 'sfx': app.audio.play(step.name); break;
             case 'title': await titleCard(step.text, step.sub); break;
             case 'fx': await showFx(step); break;

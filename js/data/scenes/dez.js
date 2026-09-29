@@ -295,6 +295,32 @@ export const scenes = [
       stat('empathy', 1),
     ],
   },
+  // ------------------------------------------------------------------ 5
+  {
+    n: 5,
+    at: ['records'],
+    minDay: 30,
+    title: 'Working Title',
+    recap: 'Weeks after the festival, Dez played you something he had written, the first new thing since Tulsa.',
+    nodes: [
+      bg('records'),
+      show('dez', 'neutral'),
+      D('neutral', 'Hey. Come here. I want you to hear something. Not a record.'),
+      narr('He plugs the bass into the little amp in the back room. He plays a line that keeps climbing and never quite lands. Then, on the fourth pass, it lands.'),
+      D('happy', 'First thing I have written since Tulsa. It is not finished. I think it is not supposed to be.'),
+      me('Does it have a name?'),
+      D('smirk', 'Working title. "Track Three."'),
+      iff({ romance: 'dez' }, [
+        D('blush', 'I wrote most of it walking home from your place. I am saying that out loud so I cannot take it back.'),
+      ], [
+        D('neutral', 'You get a lot of the credit for it. Do not make it weird.'),
+      ]),
+      choice([
+        opt('Play it again.', [D('happy', 'Yeah. Okay. Yeah.'), narr('He plays it again. This time he closes his eyes.')], { pts: ['dez', 4] }),
+        opt('It sounds like someone who never left.', [D('surprised', '...You said that to me before. I have been thinking about it for a month.')], { pts: ['dez', 4] }),
+      ]),
+    ],
+  },
 ];
 
 // ---------------------------------------------------------------- hangouts

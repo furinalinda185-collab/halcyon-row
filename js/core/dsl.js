@@ -42,5 +42,7 @@ export const log = (text) => ({ t: 'log', text });
 export const bg = (loc) => ({ t: 'bg', loc });
 export const show = (who, mood = 'neutral', side = 'center') => ({ t: 'show', who, mood, side });
 export const hide = (who) => ({ t: 'hide', who });
+/** Removes every portrait from the stage, for when a new group of people takes over. */
+export const clearStage = () => ({ t: 'clear' });
 export const sfx = (name) => ({ t: 'sfx', name });
 export const end = () => ({ t: 'end' });

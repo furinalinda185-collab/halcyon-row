@@ -17,7 +17,7 @@ export function format(text, state) {
  * Evaluate a condition. Unknown keys throw on purpose so content typos fail in
  * tests instead of silently evaluating false.
  *
- *   {flag:'x'} {noflag:'x'} {rank:['junie',2]} {stat:['charm',2]} {money:20} {loc:'cafe'}
+ *   {flag:'x'} {noflag:'x'} {is:['flag','value']} {rank:['junie',2]} {stat:['charm',2]} {money:20} {loc:'cafe'}
  *   {romance:'junie'}   they are open to more or together
  *   {romanceOn:'junie'} the player enabled romance and this friend supports it
  *   {day:['>=',5]} {item:'coffee'} {all:[...]} {any:[...]} {not:c}, or an array (AND)
@@ -31,6 +31,7 @@ export function test(cond, env) {
   if ('any' in cond) return cond.any.some((c) => test(c, env));
   if ('not' in cond) return !test(cond.not, env);
   if ('flag' in cond) return Boolean(state.flags[cond.flag]);
+  if ('is' in cond) return state.flags[cond.is[0]] === cond.is[1];
   if ('noflag' in cond) return !state.flags[cond.noflag];
   if ('rank' in cond) return (state.bonds[cond.rank[0]]?.rank ?? 0) >= cond.rank[1];
   if ('stat' in cond) return statLevel(state, cond.stat[0]) >= cond.stat[1];
@@ -130,6 +131,7 @@ export class Runner {
         return { t: 'title', text: format(n.text, state), sub: n.sub ? format(n.sub, state) : '' };
       case 'show':
       case 'hide':
+      case 'clear':
       case 'bg':
       case 'sfx':
         return { ...n };

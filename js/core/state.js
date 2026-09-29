@@ -97,8 +97,8 @@ export function sanitizeState(raw) {
         romance: ROMANCE_STATES.includes(b.romance) ? b.romance : 'off',
         met: Boolean(b.met),
         gifts: int(b.gifts, 0, 9999, 0),
-        // Only rank scenes 1 to 4 exist. Anything else is dropped, not clamped.
-        scenes: Array.isArray(b.scenes) ? [...new Set(b.scenes.filter((x) => Number.isInteger(x) && x >= 1 && x <= 4))] : [],
+        // Only rank scenes 1 to 5 exist. Anything else is dropped, not clamped.
+        scenes: Array.isArray(b.scenes) ? [...new Set(b.scenes.filter((x) => Number.isInteger(x) && x >= 1 && x <= 5))] : [],
         daily: { day: int(d.day, 0, 9999, 0), text: int(d.text, 0, 99, 0), ai: int(d.ai, 0, 99, 0), gift: int(d.gift, 0, 99, 0) },
         hangs: strList(b.hangs, 60, 200),
         known: strList(b.known, 40, 30).filter((k) => /^(like|dislike):[a-z]+$/.test(k)),

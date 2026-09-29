@@ -60,6 +60,8 @@ export function deliverTexts(state) {
   for (const c of CHARACTERS) {
     const b = state.bonds[c.id];
     if (b.rank < 1 || state.texts.pending[c.id]) continue;
+    // One text a day at most, so the phone never becomes a chore.
+    if (state.inbox[c.id].some((m) => m.from === 'them' && m.day === state.time.day)) continue;
     const rng = seeded(hashString(`text:${c.id}:${state.time.day}:${state.time.slot}`));
     const scripted = c.texts.find(
       (t) => !state.texts.seen.includes(t.id) && b.rank >= t.minRank && state.time.day >= (t.minDay ?? 1),

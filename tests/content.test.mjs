@@ -18,7 +18,7 @@ import { makeEnv } from '../js/core/game.js';
 import { seeded } from '../js/core/clock.js';
 
 const SPEAKERS = new Set([...CHARACTER_IDS, ...NPC_IDS, 'you']);
-const NODE_TYPES = new Set(['say', 'narr', 'title', 'show', 'hide', 'bg', 'sfx', 'choice', 'if', 'set', 'pts', 'stat', 'money', 'item', 'remember', 'romance', 'complete', 'log', 'end']);
+const NODE_TYPES = new Set(['say', 'narr', 'title', 'show', 'hide', 'clear', 'bg', 'sfx', 'choice', 'if', 'set', 'pts', 'stat', 'money', 'item', 'remember', 'romance', 'complete', 'log', 'end']);
 
 /** Every node in a script, including inside choices and if branches. */
 function* walk(nodes) {
@@ -63,8 +63,9 @@ test('characters are complete and consistent', () => {
   assert.equal(CHARACTERS.length, 6);
   for (const c of CHARACTERS) {
     assert.match(c.color, /^#[0-9a-f]{6}$/i, `${c.id} color`);
-    assert.ok(c.scenes.length === 4, `${c.id} needs 4 rank scenes`);
-    assert.deepEqual(c.scenes.map((s) => s.n), [1, 2, 3, 4], `${c.id} scene numbers`);
+    assert.ok(c.scenes.length === 5, `${c.id} needs 5 rank scenes (the fifth is the epilogue)`);
+    assert.deepEqual(c.scenes.map((s) => s.n), [1, 2, 3, 4, 5], `${c.id} scene numbers`);
+    assert.ok(c.scenes[4].minDay >= 29, `${c.id} scene 5 only exists after the festival`);
     assert.ok(c.hangouts.length >= 7, `${c.id} needs at least 7 hangouts`);
     assert.ok(c.texts.length >= 3, `${c.id} needs scripted texts`);
     assert.ok(c.pings.length >= 5, `${c.id} needs pings`);
@@ -222,7 +223,8 @@ test('every rank scene can actually be reached before the festival', () => {
     for (const s of c.scenes) {
       const at = s.at || LOCATION_IDS;
       const days = [];
-      for (let day = Math.max(1, s.minDay || 1); day <= 27; day++) {
+      const lastDay = s.n === 5 ? 60 : 27;
+      for (let day = Math.max(1, s.minDay || 1); day <= lastDay; day++) {
         const wd = (day - 1) % 7;
         for (let slot = 0; slot < 4; slot++) {
           const loc = c.schedule[wd][slot];
@@ -268,7 +270,7 @@ test('scenes award enough points to matter, and thresholds are reachable', () =>
         }
         return total;
       };
-      assert.ok(best(s.nodes) >= 5, `${c.id} scene ${s.n} tops out at ${best(s.nodes)} points`);
+      assert.ok(best(s.nodes) >= (s.n === 5 ? 4 : 5), `${c.id} scene ${s.n} tops out at ${best(s.nodes)} points`);
     }
   }
 });

@@ -326,6 +326,26 @@ export const scenes = [
       stat('grit', 1),
     ],
   },
+  // ------------------------------------------------------------------ 5
+  {
+    n: 5,
+    at: ['pier'],
+    minDay: 30,
+    title: 'Corner Piece',
+    recap: 'Weeks after the festival, Sable showed you a figure she had added to the corner of the wall, holding a cup.',
+    nodes: [
+      bg('pier'),
+      show('sable', 'neutral'),
+      narr('The wall looks different by daylight, weathered a little already, warmer for it. Down in the bottom corner there is a new figure, small and careful, holding a cup and a ladder.'),
+      S('neutral', 'That is you. Do not say anything. The cup is because you hold things. It is a compliment.'),
+      choice([
+        opt('I love it.', [S('blush', 'Yeah. Well. I know.')], { pts: ['sable', 4] }),
+        opt('Who is holding the ladder for you?', [S('surprised', '...Everybody, apparently. It is annoying.'), S('happy', 'It is the best thing that ever happened to me.')], { pts: ['sable', 4] }),
+      ]),
+      S('neutral', 'The room above the café has a window. I painted the sill. Junie let me. I sleep through the night now. All of it. It is weird.'),
+      S('happy', 'Anyway. Thanks. I say it once a year, so this is the one.'),
+    ],
+  },
 ];
 
 // ---------------------------------------------------------------- hangouts

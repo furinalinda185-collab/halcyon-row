@@ -7,9 +7,9 @@ export const ACTIVITIES = [
     loc: 'cafe',
     slots: [0, 1],
     label: 'Work a shift',
-    desc: 'Pull shots at Kettle & Crumb. Pays $22.',
+    desc: 'Pull shots at Kettle & Crumb. Pays $14.',
     needFlag: 'job_cafe',
-    gain: { money: 22, stat: ['charm', 1] },
+    gain: { money: 14, stat: ['charm', 1] },
     scenes: [
       'The morning rush comes in three waves. By the third you can tell who wants small talk and who wants to be left alone with their cup.',
       'You steam milk until the pitcher stops feeling hot. A regular tips you a folded dollar and a nod. That counts.',

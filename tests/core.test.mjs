@@ -83,12 +83,16 @@ test('daily caps for texts and gifts reset each day', () => {
   assert.equal(addPoints(s, 'junie', 1, 'text'), 1);
 });
 
-test('completing all four scenes maxes the ladder', () => {
+test('completing all four scenes maxes the ladder until the festival is over', () => {
   const s = newState();
   for (let n = 1; n <= 4; n++) completeScene(s, 'dez', n);
+  assert.equal(nextSceneNumber(s, 'dez'), null, 'the fifth scene waits for the story to finish');
+  assert.equal(sceneUnlocked(s, 'dez'), false);
+  s.done = true;
+  assert.equal(nextSceneNumber(s, 'dez'), 5, 'and appears afterwards');
+  completeScene(s, 'dez', 5);
   assert.equal(nextSceneNumber(s, 'dez'), null);
   assert.equal(bondProgress(s, 'dez'), 1);
-  assert.equal(sceneUnlocked(s, 'dez'), false);
 });
 
 // ----------------------------------------------------------------- script
@@ -162,6 +166,9 @@ test('conditions evaluate and unknown ones throw', () => {
   const s = newState();
   s.flags.x = true;
   s.time.day = 5;
+  s.flags.path = 'stay';
+  assert.equal(cond({ is: ['path', 'stay'] }, env(s)), true);
+  assert.equal(cond({ is: ['path', 'study'] }, env(s)), false);
   assert.equal(cond({ flag: 'x' }, env(s)), true);
   assert.equal(cond({ noflag: 'x' }, env(s)), false);
   assert.equal(cond({ day: ['>=', 5] }, env(s)), true);
@@ -414,7 +421,7 @@ test('quick replies add the reply, the answer, and capped points', () => {
   s.texts.pending.junie = { replies: [{ text: 'hello', back: ['hi back'], pts: 2 }] };
   assert.equal(unreadCount(s, 'junie'), 0);
   const got = sendQuickReply(s, 'junie', 0);
-  assert.equal(got, 2);
+  assert.equal(got, 1, 'a reply worth 2 is held to the daily text cap of 1');
   assert.deepEqual(s.inbox.junie.map((m) => m.text), ['hello', 'hi back']);
   assert.equal(s.texts.pending.junie, undefined);
   assert.equal(sendQuickReply(s, 'junie', 0), 0, 'nothing pending');
