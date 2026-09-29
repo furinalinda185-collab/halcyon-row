@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portrait lab</title>
+  <style>
+    body { margin: 0; background: #2b2540; color: #eee; font: 13px system-ui, sans-serif; padding: 12px; }
+    h2 { margin: 18px 0 6px; font-size: 14px; }
+    .grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+    .cell { background: linear-gradient(#5a4a7a, #3a2f55); border-radius: 8px; padding: 4px; text-align: center; }
+    .cell svg { width: 100%; height: auto; display: block; }
+    .big { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+    label { display: block; font-size: 11px; opacity: 0.8; }
+    body.single .grid, body.single h2.moods { display: none; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module">
+    import { CHARACTERS } from '../js/data/characters/index.js';
+    import { NPCS } from '../js/data/npcs.js';
+    import { portraitSVG, MOOD_NAMES } from '../js/art/portrait.js';
+    const q = new URLSearchParams(location.search);
+    const root = document.getElementById('root');
+    const only = q.get('who');
+    const mood = q.get('mood') || 'neutral';
+    const all = [...CHARACTERS, ...Object.values(NPCS)];
+    if (q.get('view') === 'cast') {
+      // One row of everyone, neutral and happy.
+      const g = document.createElement('div'); g.className = 'big';
+      for (const c of all.slice(0, 6)) g.insertAdjacentHTML('beforeend', `<div class="cell"><label>${c.id}</label>${portraitSVG(c.look, mood)}</div>`);
+      root.append(g);
+      const g2 = document.createElement('div'); g2.className = 'big'; g2.style.marginTop = '8px';
+      for (const c of all.slice(6)) g2.insertAdjacentHTML('beforeend', `<div class="cell"><label>${c.id}</label>${portraitSVG(c.look, mood)}</div>`);
+      root.append(g2);
+    } else {
+      for (const c of all.filter((x) => !only || x.id === only)) {
+        root.insertAdjacentHTML('beforeend', `<h2 class="moods">${c.name}</h2>`);
+        const g = document.createElement('div'); g.className = 'grid';
+        for (const m of MOOD_NAMES) g.insertAdjacentHTML('beforeend', `<div class="cell"><label>${m}</label>${portraitSVG(c.look, m)}</div>`);
+        root.append(g);
+      }
+    }
+  </script>
+</body>
+</html>
