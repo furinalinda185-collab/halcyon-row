@@ -14,6 +14,13 @@ Halcyon Row is a social sim in the spirit of Persona's confidants: one month in 
 
 ## Play
 
+Once GitHub Pages is on (see Deploy) the game lives at https://furinalinda185-collab.github.io/halcyon-row/ and needs nothing installed. To run your own copy:
+
+```sh
+git clone https://github.com/furinalinda185-collab/halcyon-row
+cd halcyon-row
+```
+
 You need Node 20.3 or newer only for the optional local server. The game itself is plain files.
 
 ```sh

@@ -3,8 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "description": "A cozy city social sim about one month, six friends and a lantern festival.",
+  "homepage": "https://furinalinda185-collab.github.io/halcyon-row/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/furinalinda185-collab/halcyon-row.git"
+  },
+  "bugs": {
+    "url": "https://github.com/furinalinda185-collab/halcyon-row/issues"
+  },
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "start": "node server/serve.mjs",
     "lan": "node server/serve.mjs --lan",
