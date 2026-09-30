@@ -1,5 +1,6 @@
 // Halcyon Row service worker: makes the game playable offline.
 // Story mode needs no network at all. AI calls are never cached or intercepted.
+// Portrait refresh, September 2026: reinstall so existing players get the new art.
 
 const PREFIX = 'halcyon-';
 const DEV_HOSTS = new Set(['localhost', '127.0.0.1', '[::1]']);
